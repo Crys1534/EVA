@@ -49,9 +49,16 @@ window.authDocente = async () => {
     const email = document.getElementById('doc-user').value;
     const pass = document.getElementById('doc-pass').value;
 
+    // Validación 1: Que no estén vacíos
     if(!email || !pass) {
         alert("Por favor, llena los bloques de correo y contraseña.");
         return;
+    }
+
+    // Validación 2: Que la contraseña sea de al menos 6 caracteres (Solo al registrar)
+    if(modoRegistroDocente && pass.length < 6) {
+        alert("¡Tu contraseña estilo bloque debe tener al menos 6 caracteres!");
+        return; 
     }
 
     try {
@@ -69,9 +76,15 @@ window.authDocente = async () => {
 
     } catch (error) {
         console.error("Error de Firebase:", error.code);
-        if(error.code === 'auth/email-already-in-use') alert("Ese correo ya está registrado.");
-        else if(error.code === 'auth/invalid-credential') alert("Contraseña o correo incorrectos.");
-        else alert("Hubo un error de conexión: " + error.message);
+        
+        // Manejo de errores amigable
+        if(error.code === 'auth/email-already-in-use') {
+            alert("Ese correo ya está registrado. Intenta iniciar sesión.");
+        } else if(error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+            alert("Contraseña o correo incorrectos.");
+        } else {
+            alert("Hubo un error de conexión: " + error.message);
+        }
     }
 }
 
