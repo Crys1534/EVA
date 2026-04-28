@@ -107,13 +107,23 @@ area.innerHTML="";
 
 const querySnapshot = await getDocs(collection(db,"classes",id,"tasks"));
 
-querySnapshot.forEach((doc)=>{
+querySnapshot.forEach((docu)=>{
+
+let data = docu.data();
 
 area.innerHTML += `
 <div class="task">
-<h3>${doc.data().title}</h3>
-<p>${doc.data().desc}</p>
-<small>Entrega: ${doc.data().date}</small>
+
+<h3>${data.title}</h3>
+
+<p>${data.desc}</p>
+
+<small>Entrega: ${data.date}</small>
+
+<textarea id="answer_${docu.id}" placeholder="Escribe tu entrega o pega enlace..."></textarea>
+
+<button onclick="submitTask('${docu.id}')">Entregar</button>
+
 </div>
 `;
 
@@ -122,3 +132,18 @@ area.innerHTML += `
 }
 
 loadTasks();
+
+window.submitTask = async function(taskId){
+
+let text = document.getElementById("answer_" + taskId).value;
+
+if(text=="") return alert("Escribe algo");
+
+await addDoc(collection(db,"classes",id,"tasks",taskId,"submissions"),{
+answer:text,
+date:new Date().toLocaleString()
+});
+
+alert("Tarea entregada correctamente");
+
+}
