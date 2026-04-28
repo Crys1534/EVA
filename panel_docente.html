@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control - Docente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container panel-wide">
+        <header>
+            <h1 class="pixel-title">GESTIÓN DEL AULA</h1>
+            <button class="btn-pixel btn-red" onclick="cerrarSesion()">SALIR</button>
+        </header>
+
+        <section id="crear-aula-section" class="card">
+            <h2>NUEVA AULA</h2>
+            <input type="text" id="escuela-nombre" placeholder="NOMBRE ESCUELA" class="input-pixel">
+            <div class="row">
+                <input type="number" id="grado-num" placeholder="6" class="input-pixel small">
+                <input type="text" id="seccion-letra" placeholder="A" class="input-pixel small">
+            </div>
+            <button class="btn-pixel" onclick="guardarAula()">CREAR MUNDO</button>
+        </section>
+
+        <section id="alumnos-section" class="card hidden">
+            <h2 id="titulo-aula">AULA: 6º A</h2>
+            <div class="add-student-box">
+                <input type="text" id="nombre-alumno" placeholder="NOMBRE DEL ALUMNO" class="input-pixel">
+                <button class="btn-pixel" onclick="agregarAlumno()">AÑADIR +</button>
+            </div>
+            
+            <table class="pixel-table">
+                <thead>
+                    <tr>
+                        <th>ALUMNO</th>
+                        <th>CÓDIGO PIN</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-alumnos-body">
+                    </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script type="module" src="panel_docente.js"></script>
+</body>
+</html>

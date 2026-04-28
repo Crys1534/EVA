@@ -60,3 +60,30 @@ body {
 .pin-input { font-size: 1.5rem; letter-spacing: 5px; color: #2b59c3; }
 
 .toggle-auth { font-size: 0.5rem; cursor: pointer; text-decoration: underline; margin: 10px 0; }
+
+
+.panel-wide { width: 80%; max-width: 800px; }
+.row { display: flex; gap: 10px; justify-content: center; }
+.small { width: 80px; }
+
+.pixel-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: #555;
+}
+
+.pixel-table th, .pixel-table td {
+    border: 4px solid #000;
+    padding: 10px;
+    text-align: left;
+}
+
+.pixel-table th { background: #333; color: #ffcc00; font-size: 0.7rem; }
+.pin-code { color: #00ff00; font-weight: bold; font-size: 1.2rem; }
+
+.add-student-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
