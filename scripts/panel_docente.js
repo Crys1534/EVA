@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/fireba
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 
-// 2. PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE (La misma de login.js)
+// 2. CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyBnX__R6A6lQw_KuzZxqHRkzZyj10S_4wU",
   authDomain: "aula-virtual-79e4d.firebaseapp.com",
@@ -19,17 +19,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-let aulaIdActual = null; // Variable para saber en qué aula estamos metiendo a los niños
+// Variables globales para el estado del panel
+let aulaIdActual = null; 
+let usuarioActivo = null; // Guardará la info del docente de forma segura
 
-// 4. SEGURIDAD: Verificar que el profe sí inició sesión
+// 4. SEGURIDAD: Verificar sesión antes de hacer cualquier cosa
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        // Si alguien intenta entrar a este link directo sin cuenta, lo pateamos al inicio
+        // Si no hay profe, de vuelta al inicio
         window.location.href = "index.html";
+    } else {
+        // Si sí hay profe, guardamos sus datos
+        usuarioActivo = user;
     }
 });
 
-// Función para el PIN
+// Función para generar el código secreto
 const generarPinUnico = () => {
     return Math.floor(10000 + Math.random() * 90000).toString();
 };
@@ -41,6 +46,9 @@ window.guardarAula = async () => {
     const seccion = document.getElementById('seccion-letra').value;
 
     if(!escuela || !grado || !seccion) return alert("LLENA TODOS LOS BLOQUES");
+    
+    // Si la sesión aún no carga por el internet, esperamos
+    if(!usuarioActivo) return alert("Cargando tu sesión, por favor espera un segundo e intenta de nuevo.");
 
     try {
         console.log("Creando el mundo en Firestore...");
@@ -50,12 +58,12 @@ window.guardarAula = async () => {
             escuela: escuela,
             grado: parseInt(grado),
             seccion: seccion.toUpperCase(),
-            docenteId: auth.currentUser.uid // Relacionamos el aula con tu cuenta
+            docenteId: usuarioActivo.uid // Usamos el ID seguro que nos dio Firebase
         });
         
-        aulaIdActual = docRef.id; // Guardamos el ID secreto que Firebase le dio a esta aula
+        aulaIdActual = docRef.id; // Guardamos la llave de esta aula
 
-        // Cambiamos la vista
+        // Cambiamos la vista de creación a la vista de alumnos
         document.getElementById('crear-aula-section').classList.add('hidden');
         document.getElementById('alumnos-section').classList.remove('hidden');
         document.getElementById('titulo-aula').innerText = `AULA: ${grado}º ${seccion} - ${escuela}`;
@@ -75,14 +83,14 @@ window.agregarAlumno = async () => {
     try {
         console.log(`Registrando a ${nombre} en la base de datos...`);
         
-        // Guardamos al alumno en la colección "alumnos" con sus stats iniciales
+        // Guardamos al alumno en "alumnos" con sus stats iniciales
         await addDoc(collection(db, "alumnos"), {
             nombre: nombre,
             pin: pin,
-            aulaId: aulaIdActual, // Lo vinculamos a tu aula
-            monedas: 0,           // ¡Empieza la economía!
-            nivel: 1,             // Empieza en nivel 1
-            xp: 0                 // Empieza con 0 de experiencia
+            aulaId: aulaIdActual, // Lo vinculamos a tu aula recién creada
+            monedas: 0,           // Economía en cero
+            nivel: 1,             // Nivel inicial
+            xp: 0                 // Experiencia en cero
         });
 
         // Lo agregamos visualmente a la tabla HTML
