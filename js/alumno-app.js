@@ -1,18 +1,49 @@
-// Importamos la inicialización y Firestore del SDK Modular
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+import { db } from './firebase-config.js';
+import { collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBnX__R6A6lQw_KuzZxqHRkzZyj10S_4wU",
-  authDomain: "aula-virtual-79e4d.firebaseapp.com",
-  databaseURL: "https://aula-virtual-79e4d-default-rtdb.firebaseio.com",
-  projectId: "aula-virtual-79e4d",
-  storageBucket: "aula-virtual-79e4d.firebasestorage.app",
-  messagingSenderId: "384731632952",
-  appId: "1:384731632952:web:9b4facff98bc7f6ebf5dcd",
-  measurementId: "G-SR9D2CJX40"
-};
+const codigoClase = "QNT-501"; 
+const feedTareas = document.getElementById('feed-tareas');
 
-// Inicializamos la aplicación y exportamos la base de datos (db)
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+// Función que escucha las tareas en tiempo real
+function cargarTareas() {
+    // Buscamos tareas específicas de este grupo, ordenadas de la más nueva a la más vieja
+    const q = query(collection(db, "tareas"), where("idClase", "==", codigoClase), orderBy("fecha", "desc"));
+
+    onSnapshot(q, (snapshot) => {
+        feedTareas.innerHTML = ''; 
+
+        if (snapshot.empty) {
+            feedTareas.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1 / -1;">No hay proyectos pendientes para esta semana.</p>';
+            return;
+        }
+
+        snapshot.forEach((doc) => {
+            const tarea = doc.data();
+            
+            // Lógica para asignar el color de la etiqueta según el campo formativo
+            let claseCampo = "saberes";
+            if(tarea.campo === "Lenguajes") claseCampo = "lenguajes";
+            if(tarea.campo === "Etica") claseCampo = "etica";
+            if(tarea.campo === "Humano") claseCampo = "humano";
+
+            const htmlTarea = `
+                <div class="task-card card">
+                    <div class="task-header">
+                        <span class="badge-formativo ${claseCampo}">${tarea.campo}</span>
+                        <span class="badge-status pending">Pendiente</span>
+                    </div>
+                    <h3 class="task-title">${tarea.titulo}</h3>
+                    <p class="task-desc">${tarea.descripcion}</p>
+                    <button class="btn btn-action" onclick="alert('¡Excelente trabajo! Guardando evidencia...')">
+                        <i class="fa-solid fa-upload"></i> Marcar como Entregado
+                    </button>
+                </div>
+            `;
+            
+            feedTareas.innerHTML += htmlTarea;
+        });
+    });
+}
+
+// Inicializamos la carga para que esté lista cuando el alumno entre
+cargarTareas();
