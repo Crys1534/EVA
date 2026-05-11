@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Docente | EVA</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Panel de Control Docente</h1>
+            <button class="btn" style="background-color: #EF4444;">Cerrar Sesión</button>
+        </header>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+            <!-- Sección de Gestión de Aula -->
+            <aside>
+                <div class="card">
+                    <h3>Mi Grupo</h3>
+                    <p class="text-muted">Código de invitación único:</p>
+                    <div style="background: var(--bg-color); padding: 1rem; border-radius: 8px; text-align: center; margin: 1rem 0; font-family: monospace; font-size: 1.5rem; letter-spacing: 2px;">
+                        <!-- Este código se generará por JS -->
+                        <strong id="codigo-clase">QNT-502-X</strong> 
+                    </div>
+                    <button class="btn" style="width: 100%;">Copiar Código</button>
+                </div>
+            </aside>
+
+            <!-- Sección de Publicación de Tareas -->
+            <main>
+                <div class="card">
+                    <h3>Publicar Nueva Actividad</h3>
+                    <form id="form-nueva-tarea">
+                        <label>Título del Proyecto:</label>
+                        <input type="text" id="titulo-tarea" placeholder="Ej. Nuestro entorno natural..." required>
+                        
+                        <label style="display: block; margin-top: 1rem;">Instrucciones:</label>
+                        <textarea id="desc-tarea" rows="4" style="width: 100%; border-radius: 8px; border: 1px solid #D1D5DB; padding: 1rem; margin-top: 0.5rem;" required></textarea>
+                        
+                        <button type="submit" class="btn">Publicar a la clase</button>
+                    </form>
+                </div>
+
+                <h3>Actividades Activas</h3>
+                <div id="lista-tareas-docente">
+                    <!-- Las tareas se inyectarán aquí con JavaScript -->
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Aquí irían los scripts de Firebase y tu lógica de docente-app.js -->
+	<script type="module" src="js/docente-app.js"></script>
+</body>
+</html>

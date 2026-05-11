@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartClass</title>
-<link rel="stylesheet" href="style.css">
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
+    <meta charset="UTF-8">
+    <title>Mi Aula Virtual</title>
+    <!-- Vinculamos el diseño -->
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
-
 <body>
+    <!-- Pantalla de inicio de sesión simple -->
+    <div id="seccion-ingreso">
+        <h2>¡Bienvenidos a Quinto Grado!</h2>
+        <p>Ingresa tu nombre para entrar a tu espacio de trabajo:</p>
+        <input type="text" id="nombre-alumno" placeholder="Tu nombre y apellido...">
+        <button onclick="guardarNombre()">Entrar</button>
+    </div>
 
-<div class="container">
+    <!-- El tablero principal (oculto hasta que pongan su nombre) -->
+    <div id="seccion-aula" style="display: none;">
+        <h2 id="saludo-alumno"></h2>
 
-<div class="card">
+        <!-- Ejemplo de una actividad -->
+        <div class="actividad">
+            <h3>Saberes y Pensamiento Científico</h3>
+            <p>Lee la página de Nuestros Saberes correspondiente al proyecto de esta semana y realiza el apunte.</p>
+            <!-- Al hacer clic, se guarda el PDA como completado -->
+            <button onclick="marcarCompletado('pda_saberes_1')">¡Ya lo terminé!</button>
+        </div>
 
-<h1>SmartClass</h1>
-<p>Tu aula virtual moderna</p>
+        <!-- Vitrina de logros -->
+        <div class="mis-insignias">
+            <h3>Tus Insignias</h3>
+            <!-- Esta insignia inicia 'bloqueada' (en gris) -->
+            <div id="insignia-saberes-1" class="insignia bloqueada">
+                🌟 Científico Explorador
+            </div>
+        </div>
+    </div>
 
-<input type="email" id="email" placeholder="Correo">
-<input type="password" id="password" placeholder="Contraseña">
-
-<button onclick="register()">Registrarse</button>
-<button onclick="login()">Iniciar Sesión</button>
-
-<p id="msg"></p>
-
-</div>
-
-</div>
-
+    <!-- Vinculamos la lógica -->
+    <script src="js/progreso.js"></script>
 </body>
 </html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual | Quinto Grado</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        /* Ajuste rápido para que la fuente se aplique */
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Animación de carga profesional */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none; /* Se activa con JS */
+            margin: 10px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <section id="seccion-unirse" class="card" style="max-width: 450px; margin: 6rem auto; text-align: center; padding: 2.5rem;">
+            <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h2 style="font-size: 1.8rem; font-weight: 700;">Bienvenido al Aula</h2>
+            <p style="color: var(--text-muted); margin: 1rem 0 2rem;">Ingresa el código único que te dio tu maestro para ver tus proyectos de Quinto Grado.</p>
+            
+            <div style="position: relative; margin-bottom: 1.5rem;">
+                <input type="text" id="input-codigo" placeholder="CÓDIGO DE CLASE" 
+                       style="text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; padding: 1rem;">
+            </div>
+            
+            <button class="btn" id="btn-entrar" style="width: 100%; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <span>Entrar al Aula</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div id="loader-unirse" class="loader"></div>
+        </section>
+
+        <main id="tablero-alumno" style="display: none; animation: fadeIn 0.5s ease;">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem;">
+                <div>
+                    <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">Mis Proyectos</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Quinto Grado | Ciclo Escolar 2025-2026</p>
+                </div>
+                <div style="text-align: right;">
+                    <span id="badge-clase" style="background: #e0e7ff; color: #4338ca; padding: 0.4rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.8rem;">
+                        <i class="fa-solid fa-users"></i> Grupo Conectado
+                    </span>
+                </div>
+            </header>
+            
+            <div id="feed-tareas" style="display: grid; gap: 1.5rem;">
+                <div style="text-align: center; padding: 3rem;">
+                    <div class="loader" style="display: block;"></div>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Cargando actividades en tiempo real...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/alumno-app.js"></script>
+
+    <script>
+        // TRUCO PROFESIONAL: Como usamos type="module", los onclick del HTML no funcionan.
+        // Agregamos un "Escuchador de eventos" una vez que el DOM esté listo.
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('btn-entrar');
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    // Verificamos si la función ya fue exportada por el módulo
+                    if (window.unirseClase) {
+                        window.unirseClase();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

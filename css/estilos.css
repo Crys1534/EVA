@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.actividad {
+    background-color: #ffffff;
+    border-left: 5px solid #4CAF50; /* Un borde verde para indicar acción */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* --- Estilos de las Insignias --- */
+.mis-insignias {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px dashed #ccc;
+}
+
+.insignia {
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.4s all ease; /* Animación suave al desbloquear */
+}
+
+.bloqueada {
+    background-color: #e0e0e0;
+    color: #888;
+    /* Efecto de blanco y negro para logros no obtenidos */
+    filter: grayscale(100%); 
+    opacity: 0.6;
+}
+
+.desbloqueada {
+    background-color: #FFD700; /* Color oro brillante */
+    color: #5c4000;
+    filter: grayscale(0%);
+    opacity: 1;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+    transform: scale(1.05); /* Se hace un poquito más grande */
+}
