@@ -1,4 +1,4 @@
-// Importamos solo lo que necesitamos para ahorrar espacio (Modular SDK)
+// Importamos la inicialización y Firestore del SDK Modular
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
@@ -13,6 +13,6 @@ const firebaseConfig = {
   measurementId: "G-SR9D2CJX40"
 };
 
-// Inicializamos Firebase
+// Inicializamos la aplicación y exportamos la base de datos (db)
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

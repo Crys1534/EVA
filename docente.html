@@ -3,54 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Docente | EVA</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>Panel Docente | Gestión de Aula</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="app-container">
-        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h1>Panel de Control Docente</h1>
-            <button class="btn" style="background-color: #EF4444;">Cerrar Sesión</button>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span>Maestro Pro</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+            <a href="#" class="active"><i class="fa-solid fa-layer-group"></i> Mis Proyectos</a>
+            <a href="#"><i class="fa-solid fa-users"></i> Mis Alumnos</a>
+            <a href="#"><i class="fa-solid fa-chart-line"></i> Seguimiento PDA</a>
+            <a href="#" class="nav-logout"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="content-header">
+            <div>
+                <h1>Gestión de Proyectos</h1>
+                <p>Quinto Grado - Ciclo 2025-2026</p>
+            </div>
+            <div class="user-profile">
+                <div class="class-code-badge">
+                    <small>CÓDIGO DE CLASE</small>
+                    <strong id="codigo-actual">QNT-501</strong>
+                </div>
+            </div>
         </header>
 
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
-            <!-- Sección de Gestión de Aula -->
-            <aside>
-                <div class="card">
-                    <h3>Mi Grupo</h3>
-                    <p class="text-muted">Código de invitación único:</p>
-                    <div style="background: var(--bg-color); padding: 1rem; border-radius: 8px; text-align: center; margin: 1rem 0; font-family: monospace; font-size: 1.5rem; letter-spacing: 2px;">
-                        <!-- Este código se generará por JS -->
-                        <strong id="codigo-clase">QNT-501</strong>
+        <section class="dashboard-grid">
+            <div class="card create-post">
+                <h2><i class="fa-solid fa-plus"></i> Publicar Nuevo Proyecto</h2>
+                <form id="form-publicar">
+                    <div class="input-group">
+                        <label>Título del Proyecto / PDA</label>
+                        <input type="text" id="titulo-tarea" placeholder="Ej: Las culturas mesoamericanas..." required>
                     </div>
-                    <button class="btn" style="width: 100%;">Copiar Código</button>
-                </div>
-            </aside>
+                    
+                    <div class="input-group">
+                        <label>Campo Formativo</label>
+                        <select id="campo-formativo">
+                            <option value="Lenguajes">Lenguajes</option>
+                            <option value="Saberes">Saberes y Pensamiento Científico</option>
+                            <option value="Etica">Ética, Naturaleza y Sociedades</option>
+                            <option value="Humano">De lo Humano y lo Comunitario</option>
+                        </select>
+                    </div>
 
-            <!-- Sección de Publicación de Tareas -->
-            <main>
-                <div class="card">
-                    <h3>Publicar Nueva Actividad</h3>
-                    <form id="form-nueva-tarea">
-                        <label>Título del Proyecto:</label>
-                        <input type="text" id="titulo-tarea" placeholder="Ej. Nuestro entorno natural..." required>
-                        
-                        <label style="display: block; margin-top: 1rem;">Instrucciones:</label>
-                        <textarea id="desc-tarea" rows="4" style="width: 100%; border-radius: 8px; border: 1px solid #D1D5DB; padding: 1rem; margin-top: 0.5rem;" required></textarea>
-                        
-                        <button type="submit" class="btn">Publicar a la clase</button>
-                    </form>
-                </div>
+                    <div class="input-group">
+                        <label>Instrucciones y Recursos</label>
+                        <textarea id="desc-tarea" rows="4" placeholder="Describe las actividades, páginas de Nuestros Saberes y criterios de evaluación..." required></textarea>
+                    </div>
 
-                <h3>Actividades Activas</h3>
-                <div id="lista-tareas-docente">
-                    <!-- Las tareas se inyectarán aquí con JavaScript -->
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i> Publicar a la Clase
+                    </button>
+                </form>
+            </div>
+
+            <div class="feed-section">
+                <h2>Proyectos Activos</h2>
+                <div id="lista-tareas-docente" class="feed-container">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-box-open"></i>
+                        <p>No has publicado proyectos aún.</p>
+                    </div>
                 </div>
-            </main>
-        </div>
-    </div>
-    
-    <!-- Aquí irían los scripts de Firebase y tu lógica de docente-app.js -->
-	<script type="module" src="js/docente-app.js"></script>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/docente-app.js"></script>
 </body>
 </html>

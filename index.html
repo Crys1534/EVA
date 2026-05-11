@@ -2,42 +2,62 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Aula Virtual</title>
-    <!-- Vinculamos el diseño -->
-    <link rel="stylesheet" href="css/estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Educativa | Inicio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Pantalla de inicio de sesión simple -->
-    <div id="seccion-ingreso">
-        <h2>¡Bienvenidos a Quinto Grado!</h2>
-        <p>Ingresa tu nombre para entrar a tu espacio de trabajo:</p>
-        <input type="text" id="nombre-alumno" placeholder="Tu nombre y apellido...">
-        <button onclick="guardarNombre()">Entrar</button>
-    </div>
 
-    <!-- El tablero principal (oculto hasta que pongan su nombre) -->
-    <div id="seccion-aula" style="display: none;">
-        <h2 id="saludo-alumno"></h2>
-
-        <!-- Ejemplo de una actividad -->
-        <div class="actividad">
-            <h3>Saberes y Pensamiento Científico</h3>
-            <p>Lee la página de Nuestros Saberes correspondiente al proyecto de esta semana y realiza el apunte.</p>
-            <!-- Al hacer clic, se guarda el PDA como completado -->
-            <button onclick="marcarCompletado('pda_saberes_1')">¡Ya lo terminé!</button>
-        </div>
-
-        <!-- Vitrina de logros -->
-        <div class="mis-insignias">
-            <h3>Tus Insignias</h3>
-            <!-- Esta insignia inicia 'bloqueada' (en gris) -->
-            <div id="insignia-saberes-1" class="insignia bloqueada">
-                🌟 Científico Explorador
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <span>AulaVirtual</span>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Vinculamos la lógica -->
-    <script src="js/progreso.js"></script>
+    <main class="hero-section">
+        <div class="hero-content">
+            <span class="badge">Ciclo Escolar 2025-2026</span>
+            <h1>Tu espacio digital para proyectos de <span class="highlight">Quinto Grado</span></h1>
+            <p>Accede a tus actividades, consulta el material de Nuestros Saberes y sube tus evidencias fácilmente desde cualquier dispositivo.</p>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='alumno.html'">
+                    <i class="fa-solid fa-user-graduate"></i> Entrar como Alumno
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='docente.html'">
+                    <i class="fa-solid fa-chalkboard-user"></i> Acceso Docente
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fa-solid fa-layer-group feature-icon"></i>
+            <h3>Campos Formativos</h3>
+            <p>Actividades organizadas según la Nueva Escuela Mexicana para un aprendizaje integral.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-cloud-arrow-up feature-icon"></i>
+            <h3>Sincronización en la Nube</h3>
+            <p>Todo tu progreso se guarda automáticamente y en tiempo real.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-award feature-icon"></i>
+            <h3>Logros y Avances</h3>
+            <p>Gana insignias al completar tus PDA y llevar tu portafolio al día.</p>
+        </div>
+    </section>
+
 </body>
 </html>

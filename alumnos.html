@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Aula | Quinto Grado</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar" style="background-color: var(--primary);"> <div class="sidebar-header" style="background-color: rgba(0,0,0,0.1);">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Mi Aula Virtual</span>
+        </div>
+        <nav class="sidebar-nav student-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+            <a href="#" class="active"><i class="fa-solid fa-book"></i> Mis Proyectos</a>
+            <a href="#"><i class="fa-solid fa-medal"></i> Mis Insignias</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        
+        <section id="seccion-unirse" class="join-section">
+            <div class="card" style="max-width: 450px; margin: 4rem auto; text-align: center; padding: 3rem 2rem;">
+                <i class="fa-solid fa-key" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h2>Conéctate a tu Grupo</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Ingresa el código que te proporcionó tu maestro para ver tus actividades.</p>
+                
+                <input type="text" id="input-codigo" placeholder="Ej: QNT-501" 
+                       style="text-align: center; font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem;">
+                
+                <button id="btn-entrar" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    Entrar a Clase <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="tablero-alumno" style="display: none;">
+            <header class="content-header">
+                <div>
+                    <h1>Proyectos de la Semana</h1>
+                    <p>Quinto Grado - Revisa tu libro de Nuestros Saberes</p>
+                </div>
+                <div class="student-profile">
+                    <span class="status-badge"><i class="fa-solid fa-circle-check"></i> Conectado</span>
+                </div>
+            </header>
+
+            <div id="feed-tareas" class="tasks-grid">
+                <div class="task-card card">
+                    <div class="task-header">
+                        <span class="badge-formativo saberes">Saberes y Pensamiento</span>
+                        <span class="badge-status pending">Pendiente</span>
+                    </div>
+                    <h3 class="task-title">El ciclo del agua en nuestra comunidad</h3>
+                    <p class="task-desc">Lee la página 45 de Nuestros Saberes y elabora un esquema en tu libreta.</p>
+                    <button class="btn btn-action"><i class="fa-solid fa-upload"></i> Marcar como Entregado</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="js/alumno-app.js"></script>
+    
+    <script>
+        // Lógica sencilla de interfaz para mostrar el tablero
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnEntrar = document.getElementById('btn-entrar');
+            if(btnEntrar) {
+                btnEntrar.addEventListener('click', () => {
+                    const cod = document.getElementById('input-codigo').value.trim().toUpperCase();
+                    if(cod === "QNT-501") {
+                        document.getElementById('seccion-unirse').style.display = 'none';
+                        document.getElementById('tablero-alumno').style.display = 'block';
+                    } else {
+                        alert("Código incorrecto. Verifica con tu maestro.");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
